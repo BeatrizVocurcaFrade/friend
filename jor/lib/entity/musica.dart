@@ -1,6 +1,6 @@
 var musicas = [
-  Music('assets/linn.jpg', "linn.mp3"),
-  Music('assets/val.jpg', "val.m4a"),
+  Music('assets/linn.png', "linn.mp3"),
+  Music('assets/val.png', "val.m4a"),
 ];
 
 class Music {

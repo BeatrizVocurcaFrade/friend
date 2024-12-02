@@ -60,6 +60,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/1.jpeg
     - assets/2.jpeg
     - assets/3.jpeg
     - assets/4.jpeg
@@ -70,8 +71,13 @@ flutter:
     - assets/9.jpeg
     - assets/10.jpeg
     - assets/11.jpeg
+    - assets/linn.png
+    - assets/val.png
+    - assets/zara_logo.png
+    - assets/ele.jpeg
     - assets/val.m4a
     - assets/linn.mp3
+
     - assets/fofa.mp3
   #   - images/a_dot_ham.jpeg
 

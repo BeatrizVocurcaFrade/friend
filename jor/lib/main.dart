@@ -45,7 +45,7 @@ class _MemoryCarouselState extends State<MemoryCarousel> {
   }
 
   Future<void> _playMusic() async {
-    await _audioPlayer.play(AssetSource('assets/fofa.mp3'));
+    await _audioPlayer.play(AssetSource('fofa.mp3'));
   }
 
   @override
@@ -60,7 +60,6 @@ class _MemoryCarouselState extends State<MemoryCarousel> {
     return Scaffold(
       body: Stack(
         children: [
-          // Carrossel de imagens
           PageView.builder(
             itemCount: memorias.length,
             itemBuilder: (context, index) {
@@ -68,16 +67,13 @@ class _MemoryCarouselState extends State<MemoryCarousel> {
               return Stack(
                 fit: StackFit.expand,
                 children: [
-                  // Imagem de fundo
                   Image.asset(
                     memory.image,
                     fit: BoxFit.cover,
                   ),
-                  // Sombreado para destacar o texto
                   Container(
                     color: Colors.black.withOpacity(0.5),
                   ),
-                  // Texto da mensagem
                   Center(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -103,13 +99,13 @@ class _MemoryCarouselState extends State<MemoryCarousel> {
               );
             },
           ),
-          // Botão de Voltar
           Positioned(
             top: 40,
             left: 16,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
+                _audioPlayer.stop();
                 Navigator.pop(context);
               },
             ),

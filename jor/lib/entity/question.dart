@@ -36,7 +36,6 @@ var quizQuestions = [
     answer: 'Arranjaria um date no grindr',
     options: [
       'Se perderia por 1h',
-      'Procuraria um mapa',
       'Chamaria o Uber',
       'Arranjaria um date no grindr',
       'Pediria ajuda para um estranho'
@@ -47,8 +46,7 @@ var quizQuestions = [
   Question(
     answer: 'Ficar olhando as estrelas',
     options: [
-      'Ficar fazendo palavra-cruzada'
-          'Ficar olhando as estrelas',
+      'Ficar olhando as estrelas',
       'Ficar assistindo kim kardashian e comendo algum doce importado',
       'Fazer uma maratona de filmes de terror',
       'Ficar cozinhando e tentando novas receitas'
@@ -64,7 +62,7 @@ var quizQuestions = [
       'Ir para um show do seu artista favorito'
     ],
     question:
-        'Se você tivesse que fazer algo totalmente espontâneo, o que seria?',
+        'Se você tivesse que fazer algo totalmente espontâneo, o que eu acho que seria seria?',
   ),
   Question(
     answer: 'Uma nova dança',

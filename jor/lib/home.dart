@@ -4,7 +4,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:jor/entity/memoria.dart';
 import 'package:jor/entity/musica.dart';
 import 'package:jor/main.dart';
-import 'package:jor/quiz.dart';
+import 'package:jor/quiz/quiz.dart';
+import 'package:jor/splash.dart';
+import 'package:jor/voucher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,28 +35,25 @@ class _HomePageState extends State<HomePage> {
     return SizedBox(
       height: 130,
       child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          _buildMusicItem(musicas[0], audioPlayer),
-          _buildMusicItem(musicas[0], audioPlayer),
-          _buildMusicItem(musicas[0], audioPlayer),
-        ],
-      ),
+          scrollDirection: Axis.horizontal,
+          children: musicas
+              .map(
+                (e) => _buildMusicItem(e, audioPlayer),
+              )
+              .toList()),
     );
   }
 
   Widget _buildPhotoCarousel() {
     return SizedBox(
-      height: 200,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          _buildPhotoItem(memorias[0]),
-          _buildPhotoItem(memorias[0]),
-          _buildPhotoItem(memorias[0]),
-        ],
-      ),
-    );
+        height: 200,
+        child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: memorias
+                .map(
+                  (e) => _buildPhotoItem(e),
+                )
+                .toList()));
   }
 
   Widget _buildCard({
@@ -145,6 +144,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SplashScreen()),
+          ),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+        ),
         title: const Text(
           'Bem-vindo 🌟',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
@@ -153,45 +159,64 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          _buildSectionHeader('🎵 Playlist Favorita'),
-          _buildMusicCarousel(_audioPlayer),
-          _buildSectionHeader('✨ Quiz do Melhor Amigo'),
-          _buildCard(
-            title: 'Descubra Memórias Únicas',
-            description: 'Responda e explore nosso passado.',
-            icon: Icons.quiz,
-            color: Colors.deepPurple,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const QuizPage()),
-              );
-            },
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MemoryCarousel()),
-              );
-            },
-            child: _buildSectionHeader('📸 Galeria de Memórias'),
-          ),
-          _buildPhotoCarousel(),
-          _buildSectionHeader('🎁 Surpresa Especial'),
-          _buildCard(
-            title: 'Clique para abrir seu presente',
-            description: 'Um mimo só para você!',
-            icon: Icons.card_giftcard,
-            color: Colors.deepPurple,
-            onTap: () {
-              // Função surpresa
-            },
-          ),
-        ],
+      body: GestureDetector(
+        onTap: () {
+          _audioPlayer.stop();
+        },
+        child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            _buildSectionHeader('🎵 Músicas que definem nossa amizade'),
+            _buildMusicCarousel(_audioPlayer),
+            _buildSectionHeader('✨ Quiz do Melhor Amigo'),
+            _buildCard(
+              title: 'Teste da amizade',
+              description: 'Responda e explore nosso passado.',
+              icon: Icons.quiz,
+              color: Colors.deepPurple,
+              onTap: () {
+                _audioPlayer.stop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const QuizPage()),
+                );
+              },
+            ),
+            GestureDetector(
+              onTap: () {
+                _audioPlayer.stop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MemoryCarousel()),
+                );
+              },
+              child: _buildSectionHeader('📸 Galeria de Memórias'),
+            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MemoryCarousel()),
+                  );
+                },
+                child: _buildPhotoCarousel()),
+            _buildSectionHeader('🎁 Surpresa Especial'),
+            _buildCard(
+              title: 'Clique para abrir seu presente',
+              description: 'Um mimo só para você!',
+              icon: Icons.card_giftcard,
+              color: Colors.deepPurple,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const VoucherPage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
