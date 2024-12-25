@@ -17,7 +17,7 @@ class VoucherPage extends StatelessWidget {
         ),
         title: const Text('Para Você, Amigo!',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -43,7 +43,7 @@ class VoucherPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
-                color: Colors.deepPurpleAccent,
+                color: Colors.black87,
                 letterSpacing: 1.5,
               ),
             ),
@@ -53,7 +53,7 @@ class VoucherPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withValues(alpha: 0.6),
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -62,14 +62,14 @@ class VoucherPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.pinkAccent.shade200, Colors.purple.shade600],
+                  colors: [Colors.pink.shade300, Colors.purple.shade600],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 15,
                     offset: const Offset(0, 8),
                   ),
@@ -108,12 +108,12 @@ class VoucherPage extends StatelessWidget {
             ),
             const SizedBox(height: 40),
             Text(
-              'Pensei com carinho um presente que iria gostar, espero que curta! ❤️',
+              'Pensei com carinho um presente de que iria gostar, espero que curta! ❤️',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 letterSpacing: 1.1,
               ),
             ),

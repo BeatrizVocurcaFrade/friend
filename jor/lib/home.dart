@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:jor/entity/memoria.dart';
 import 'package:jor/entity/musica.dart';
+import 'package:jor/functions.dart';
 import 'package:jor/main.dart';
 import 'package:jor/quiz/quiz.dart';
 import 'package:jor/splash.dart';
@@ -14,6 +14,17 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
+class Section {
+  String title;
+  bool isExpanded;
+
+  Section({required this.title, this.isExpanded = false});
+}
+
+List<Section> sections = [
+  Section(title: '🎵 Músicas que definem nossa amizade'),
+];
 
 class _HomePageState extends State<HomePage> {
   late AudioPlayer _audioPlayer;
@@ -31,118 +42,17 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Widget _buildMusicCarousel(AudioPlayer audioPlayer) {
-    return SizedBox(
-      height: 130,
-      child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: musicas
-              .map(
-                (e) => _buildMusicItem(e, audioPlayer),
-              )
-              .toList()),
-    );
-  }
-
-  Widget _buildPhotoCarousel() {
-    return SizedBox(
-        height: 200,
-        child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: memorias
-                .map(
-                  (e) => _buildPhotoItem(e),
-                )
-                .toList()));
-  }
-
-  Widget _buildCard({
-    required String title,
-    required String description,
-    required IconData icon,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Card(
-      elevation: 8,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      color: color,
-      child: ListTile(
-        leading: Icon(icon, size: 40, color: Colors.white),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        subtitle: Text(
-          description,
-          style: const TextStyle(color: Colors.white70),
-        ),
-        onTap: onTap,
-      ),
-    );
-  }
-
-  Future<void> _playMusic(String musicAsset, AudioPlayer audioPlayer) async {
-    await audioPlayer.play(AssetSource(musicAsset));
-  }
-
-  Widget _buildMusicItem(Music music, AudioPlayer audioPlayer) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: GestureDetector(
-          onTap: () {
-            _playMusic(music.music, audioPlayer);
-          },
-          child: Image.asset(
-            music.image,
-            fit: BoxFit.cover,
-            width: 100,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPhotoItem(Memoria memoria) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Image.asset(
-          memoria.image,
-          fit: BoxFit.cover,
-          width: 150,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const VoucherPage()),
+            );
+          },
+          label: Text('🎁 Abra o seu presente!')),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.push(
@@ -152,12 +62,12 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
         title: const Text(
-          'Bem-vindo 🌟',
+          'Bem-vindoo 🌟',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.deepPurple,
         centerTitle: true,
-        elevation: 0,
+        elevation: 5,
       ),
       body: GestureDetector(
         onTap: () {
@@ -166,14 +76,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
-            _buildSectionHeader('🎵 Músicas que definem nossa amizade'),
-            _buildMusicCarousel(_audioPlayer),
-            _buildSectionHeader('✨ Quiz do Melhor Amigo'),
-            _buildCard(
-              title: 'Teste da amizade',
-              description: 'Responda e explore nosso passado.',
-              icon: Icons.quiz,
-              color: Colors.deepPurple,
+            GestureDetector(
               onTap: () {
                 _audioPlayer.stop();
                 Navigator.push(
@@ -181,7 +84,9 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => const QuizPage()),
                 );
               },
+              child: buildSectionHeader('✨ Faça o Quiz do Melhor Amigo', true),
             ),
+            const SizedBox(height: 16),
             GestureDetector(
               onTap: () {
                 _audioPlayer.stop();
@@ -191,33 +96,149 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => const MemoryCarousel()),
                 );
               },
-              child: _buildSectionHeader('📸 Galeria de Memórias'),
+              child: buildSectionHeader('📸 Galeria de Memórias', false),
             ),
+            buildCarousel(memorias, context),
+            const SizedBox(height: 16),
+            buildSectionHeader('📚 Livros que você quer ler...', false),
+            buildCarousel(livros, context),
+            const SizedBox(height: 16),
             GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MemoryCarousel()),
-                  );
-                },
-                child: _buildPhotoCarousel()),
-            _buildSectionHeader('🎁 Surpresa Especial'),
-            _buildCard(
-              title: 'Clique para abrir seu presente',
-              description: 'Um mimo só para você!',
-              icon: Icons.card_giftcard,
-              color: Colors.deepPurple,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const VoucherPage()),
-                );
+                setState(() {
+                  sections[0].isExpanded = !sections[0].isExpanded;
+                });
+                if (!sections[0].isExpanded) {
+                  _audioPlayer.stop();
+                }
               },
+              child: ExpansionPanelList(
+                expansionCallback: (int index, bool isExpanded) {
+                  setState(() {
+                    sections[0].isExpanded = !sections[0].isExpanded;
+                  });
+                  if (!sections[0].isExpanded) {
+                    _audioPlayer.stop();
+                  }
+                },
+                children: sections.map<ExpansionPanel>((Section section) {
+                  return ExpansionPanel(
+                    headerBuilder: (BuildContext context, bool isExpanded) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: buildSectionHeader(section.title, false),
+                      );
+                    },
+                    body: buildMusicCarousel(_audioPlayer),
+                    isExpanded: section.isExpanded,
+                  );
+                }).toList(),
+              ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
     );
   }
+}
+
+Widget buildSectionHeader(String title, bool isToTap) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 16.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+        Visibility(
+            visible: isToTap, child: Icon(Icons.arrow_forward_ios_outlined))
+      ],
+    ),
+  );
+}
+
+Widget buildMusicCarousel(AudioPlayer audioPlayer) {
+  return SizedBox(
+    height: 140,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children:
+          musicas.map((music) => buildMusicItem(music, audioPlayer)).toList(),
+    ),
+  );
+}
+
+Widget buildMusicItem(Music music, AudioPlayer audioPlayer) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: GestureDetector(
+        onTap: () => playMusic(music.music, audioPlayer),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              music.image,
+              fit: BoxFit.cover,
+              width: 120,
+            ),
+            Container(
+              color: Colors.black54,
+              child: const Icon(
+                Icons.play_circle_fill,
+                color: Colors.white,
+                size: 40,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget buildCarousel(List<Memoria> listM, BuildContext context) {
+  return SizedBox(
+    height: 200,
+    child: ListView(
+      scrollDirection: Axis.horizontal,
+      children:
+          listM.map((memoria) => buildPhotoItem(memoria, context)).toList(),
+    ),
+  );
+}
+
+Widget buildPhotoItem(Memoria memoria, BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      if (memoria.isDownload) {
+        downloadAndOpenPdf(
+          context,
+          memoria.url,
+          'meu_arquivo_${memoria.message}',
+        );
+      }
+    },
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.asset(
+          memoria.image,
+          fit: BoxFit.cover,
+          width: 150,
+        ),
+      ),
+    ),
+  );
 }

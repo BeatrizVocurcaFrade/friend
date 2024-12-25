@@ -8,21 +8,6 @@ class Question {
 
 var quizQuestions = [
   Question(
-    answer: 'Vibrador',
-    options: ['Vibrador', 'Chocolate', 'Flores', 'Perfume'],
-    question: 'Qual presente você me deu que foi o mais inesperado?',
-  ),
-  Question(
-    answer: 'Dua Lipa',
-    options: ['Dua Lipa', 'Lady Gaga', 'Beyoncé', 'Rihanna'],
-    question: 'Quem eu acho que é o seu artista favorito?',
-  ),
-  Question(
-    answer: 'Claro',
-    options: ['Sim', 'Claro'],
-    question: 'Se não casarmos até os 30 anos, você se casaria comigo?',
-  ),
-  Question(
     answer: 'Fazer um date com sua melhor amiga e escutar ela falar de mulher',
     options: [
       'Comer escargot com francês e tomar champagne de verdade',
@@ -31,6 +16,21 @@ var quizQuestions = [
       'Dar uma voltinha numa bizz com um gringo em Malta'
     ],
     question: 'Qual a sua ideia de date ideal?',
+  ),
+  Question(
+    answer: 'Claro',
+    options: ['Sim', 'Claro'],
+    question: 'Se não casarmos até os 30 anos, você se casaria comigo?',
+  ),
+  Question(
+    answer: 'Vibrador',
+    options: ['Vibrador', 'Chocolate', 'Flores', 'Perfume'],
+    question: 'Qual presente você me deu que foi o mais inesperado?',
+  ),
+  Question(
+    answer: 'Dua Lipa',
+    options: ['Dua Lipa', 'Lady Gaga', 'Beyoncé', 'Rihanna'],
+    question: 'Quem eu acho que é o seu artista favorito?',
   ),
   Question(
     answer: 'Arranjaria um date no grindr',
@@ -44,7 +44,7 @@ var quizQuestions = [
         'Se você estivesse perdido na cidade, o que eu acho que você faria?',
   ),
   Question(
-    answer: 'Ficar olhando as estrelas',
+    answer: 'Ficar assistindo kim kardashian e comendo algum doce importado',
     options: [
       'Ficar olhando as estrelas',
       'Ficar assistindo kim kardashian e comendo algum doce importado',
@@ -65,7 +65,7 @@ var quizQuestions = [
         'Se você tivesse que fazer algo totalmente espontâneo, o que eu acho que seria seria?',
   ),
   Question(
-    answer: 'Uma nova dança',
+    answer: 'Francês, para conhecer um novo amor',
     options: [
       'Uma nova dança',
       'Francês, para conhecer um novo amor',
