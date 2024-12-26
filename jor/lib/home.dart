@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 import 'package:jor/entity/memoria.dart';
 import 'package:jor/entity/musica.dart';
 import 'package:jor/functions.dart';
@@ -228,7 +229,14 @@ Widget buildPhotoItem(Memoria memoria, BuildContext context) {
           'meu_arquivo_${memoria.message}',
         );
       } else if (memoria.isNetwork) {
-        redirectToSite();
+        // redirectToSite();
+        Clipboard.setData(ClipboardData(text: memoria.url.toString()));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Link para ler o livro copiado com sucesso...'),
+            backgroundColor: Colors.green,
+          ),
+        );
       }
     },
     child: Padding(
