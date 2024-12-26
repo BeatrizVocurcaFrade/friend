@@ -8,18 +8,8 @@ class Question {
 
 var quizQuestions = [
   Question(
-    answer: 'Fazer um date com sua melhor amiga e escutar ela falar de mulher',
-    options: [
-      'Comer escargot com francês e tomar champagne de verdade',
-      'Sair com um padrão para um restaurante superfaturado e depois ir para o barco dele',
-      'Fazer um date com sua melhor amiga e escutar ela falar de mulher',
-      'Dar uma voltinha numa bizz com um gringo em Malta'
-    ],
-    question: 'Qual a sua ideia de date ideal?',
-  ),
-  Question(
-    answer: 'Claro',
-    options: ['Sim', 'Claro'],
+    answer: 'Com certeza',
+    options: ['Sim', 'Claro', 'Com certeza'],
     question: 'Se não casarmos até os 30 anos, você se casaria comigo?',
   ),
   Question(
@@ -28,20 +18,34 @@ var quizQuestions = [
     question: 'Qual presente você me deu que foi o mais inesperado?',
   ),
   Question(
-    answer: 'Dua Lipa',
-    options: ['Dua Lipa', 'Lady Gaga', 'Beyoncé', 'Rihanna'],
-    question: 'Quem eu acho que é o seu artista favorito?',
+    answer: 'Todas as opções acima',
+    options: [
+      'Reclamar como ser solteiro é ruim',
+      'Fofocar de todos os nossos dates da semana',
+      'Falar como somos os únicos românticos em bh',
+      'Todas as opções acima'
+    ],
+    question: 'Qual assunto é mais provável que a gnt converse no rolê?',
   ),
   Question(
-    answer: 'Arranjaria um date no grindr',
+    answer: 'Fazer um date com sua melhor amiga e escutar ela falar de mulher',
     options: [
-      'Se perderia por 1h',
-      'Chamaria o Uber',
-      'Arranjaria um date no grindr',
-      'Pediria ajuda para um estranho'
+      'Fazer um date com sua melhor amiga e escutar ela falar de mulher',
+      'Comer escargot com francês e tomar champagne de verdade',
+      'Sair com um padrão para um restaurante superfaturado e depois ir para o barco dele',
+      'Dar uma voltinha numa bizz com um gringo em Malta'
+    ],
+    question: 'Qual a sua ideia de date ideal?',
+  ),
+  Question(
+    answer: 'Arranjaria um date com um playboy no grindr',
+    options: [
+      'Iria ao museu',
+      'Daria uma volta na praça sete',
+      'Arranjaria um date com um playboy no grindr',
     ],
     question:
-        'Se você estivesse perdido na cidade, o que eu acho que você faria?',
+        'Se você estivesse a toa em um final de semana, o que eu acho que você faria?',
   ),
   Question(
     answer: 'Ficar assistindo kim kardashian e comendo algum doce importado',
@@ -54,15 +58,14 @@ var quizQuestions = [
     question: 'Das opções abaixo, qual que eu acho que você mais faria?',
   ),
   Question(
-    answer: 'Ir para um show do seu artista favorito',
+    answer: 'Um francês grosso de aparência duvidosa',
     options: [
-      'Fazer um TikTok de dança',
-      'Correr uma maratona',
-      'Ficar dormindo o dia todo',
-      'Ir para um show do seu artista favorito'
+      'Um cara inteletual',
+      'Uma gay afeminada',
+      'Um francês grosso de aparência duvidosa',
+      'Um cara padrão, esportista'
     ],
-    question:
-        'Se você tivesse que fazer algo totalmente espontâneo, o que eu acho que seria seria?',
+    question: 'Qual eu acho que é seu tipo?',
   ),
   Question(
     answer: 'Francês, para conhecer um novo amor',
