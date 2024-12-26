@@ -1,5 +1,13 @@
 var memorias = [
   Memoria.image(
+      image: 'assets/13.jpeg',
+      message: "Te amo, mas essa foto tinha que vir primeiro kkkkk"),
+  Memoria.image(
+      image: 'assets/12.jpeg', message: "Nosso último rolê do ano..."),
+  Memoria.image(
+      image: 'assets/9.jpeg',
+      message: "Coloquei essa só porque eu tô gostosa nessa foto"),
+  Memoria.image(
       image: 'assets/1.jpeg',
       message:
           "Dia em que fomos para a baladinha com o menor número de gays na história"),
@@ -18,20 +26,9 @@ var memorias = [
   Memoria.image(
       image: 'assets/8.jpeg', message: "Devíamos ter uns 11 anos nessa foto"),
   Memoria.image(
-      image: 'assets/9.jpeg',
-      message: "Coloquei essa só porque eu tô gostosa nessa foto"),
-  Memoria.image(
       image: 'assets/10.jpeg',
       message: "Tentamos tirar uma boa foto, mas esse dia não ajudou"),
-  Memoria.image(
-      image: 'assets/11.jpeg',
-      message: "Combinandinho na praia, bem estilo casal"),
-  Memoria.image(
-      image: 'assets/12.jpeg',
-      message: "Combinandinho na praia, bem estilo casal"),
-  Memoria.image(
-      image: 'assets/13.jpeg',
-      message: "Combinandinho na praia, bem estilo casal")
+  Memoria.image(image: 'assets/11.jpeg', message: "Combinandinho na praia"),
 ];
 var livros = [
   Memoria.book(
@@ -41,9 +38,11 @@ var livros = [
       url: "assets/b.epub",
       message: "TalvezVceDevaConversar"),
   Memoria.book(
-      image: 'assets/c.jpg', url: "assets/d.pdf", message: "NPediNoVazio"),
+      image: 'assets/c.jpg', url: "assets/d.pdf", message: "NPiseNoVazio"),
   Memoria.book(
-      image: 'assets/d.jpg', url: "assets/c.pdf", message: "AgntMiraNoAmor"),
+      image: 'assets/d.jpg', url: "assets/c.pdf", message: "DesigningYourLife"),
+  // Memoria.net(
+  //     image: 'assets/f.jpg', url: "https://amz.onl/3Ba6m3Z", message: "Boteco"),
 ];
 
 class Memoria {
@@ -51,19 +50,29 @@ class Memoria {
   String message;
   String url;
   bool isDownload;
+  bool isNetwork;
   Memoria.image(
       {required this.image,
       required this.message,
       this.url = '',
+      this.isNetwork = false,
       this.isDownload = false});
+  // Memoria.net(
+  //     {required this.image,
+  //     required this.message,
+  //     this.url = '',
+  //     this.isNetwork = true,
+  //     this.isDownload = false});
   Memoria(
       {required this.image,
       required this.message,
       this.url = '',
+      this.isNetwork = false,
       this.isDownload = false});
   Memoria.book(
       {required this.image,
       required this.message,
       required this.url,
+      this.isNetwork = false,
       this.isDownload = true});
 }

@@ -227,6 +227,8 @@ Widget buildPhotoItem(Memoria memoria, BuildContext context) {
           memoria.url,
           'meu_arquivo_${memoria.message}',
         );
+      } else if (memoria.isNetwork) {
+        redirectToSite();
       }
     },
     child: Padding(

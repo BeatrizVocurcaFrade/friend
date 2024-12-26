@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<void> playMusic(String musicAsset, AudioPlayer audioPlayer) async {
   await audioPlayer.play(AssetSource(musicAsset));
@@ -42,5 +44,21 @@ Future<void> downloadAndOpenPdf(
         backgroundColor: Colors.red,
       ),
     );
+  }
+}
+
+void redirectToSite() async {
+  final Uri uri = Uri.parse("https://amz.onl/3Ba6m3Z");
+  try {
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication, // Tenta abrir no WebView
+      );
+    } else {
+      debugPrint("Não foi possível abrir a URL: $uri");
+    }
+  } catch (e) {
+    debugPrint("Erro ao lançar a URL: $e");
   }
 }
