@@ -13,11 +13,6 @@ var quizQuestions = [
     question: 'Se não casarmos até os 30 anos, você se casaria comigo?',
   ),
   Question(
-    answer: 'Vibrador',
-    options: ['Vibrador', 'Chocolate', 'Flores', 'Perfume'],
-    question: 'Qual presente você me deu que foi o mais inesperado?',
-  ),
-  Question(
     answer: 'Todas as opções acima',
     options: [
       'Reclamar como ser solteiro é ruim',
@@ -26,6 +21,11 @@ var quizQuestions = [
       'Todas as opções acima'
     ],
     question: 'Qual assunto é mais provável que a gnt converse no rolê?',
+  ),
+  Question(
+    answer: 'Dois vibradores',
+    options: ['Flores', 'Dois vibradores', 'Chocolate', 'Perfume'],
+    question: 'Qual foi o presente que você me deu que eu mais gostei?',
   ),
   Question(
     answer: 'Fazer um date com sua melhor amiga e escutar ela falar de mulher',

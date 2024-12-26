@@ -24,7 +24,7 @@ class Section {
 }
 
 List<Section> sections = [
-  Section(title: '🎵 Músicas que definem nossa amizade'),
+  Section(title: '🎵 Nosssas músicas'),
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
         title: const Text(
-          'Bem-vindoo 🌟',
+          '🌈 Bem-vindoo 🌈',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Colors.deepPurple,
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => const QuizPage()),
                 );
               },
-              child: buildSectionHeader('✨ Faça o Quiz do Melhor Amigo', true),
+              child: buildSectionHeader('✨ Teste da Amizade', true),
             ),
             const SizedBox(height: 16),
             GestureDetector(
@@ -99,7 +99,16 @@ class _HomePageState extends State<HomePage> {
               },
               child: buildSectionHeader('📸 Galeria de Memórias', false),
             ),
-            buildCarousel(memorias, context),
+            GestureDetector(
+                onTap: () {
+                  _audioPlayer.stop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MemoryCarousel()),
+                  );
+                },
+                child: buildCarousel(memorias, context)),
             const SizedBox(height: 16),
             buildSectionHeader('📚 Livros que você quer ler...', false),
             buildCarousel(livros, context),
@@ -113,27 +122,45 @@ class _HomePageState extends State<HomePage> {
                   _audioPlayer.stop();
                 }
               },
-              child: ExpansionPanelList(
-                expansionCallback: (int index, bool isExpanded) {
-                  setState(() {
-                    sections[0].isExpanded = !sections[0].isExpanded;
-                  });
-                  if (!sections[0].isExpanded) {
-                    _audioPlayer.stop();
-                  }
-                },
-                children: sections.map<ExpansionPanel>((Section section) {
-                  return ExpansionPanel(
-                    headerBuilder: (BuildContext context, bool isExpanded) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: buildSectionHeader(section.title, false),
-                      );
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 4,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: ExpansionPanelList(
+                    expansionCallback: (int index, bool isExpanded) {
+                      setState(() {
+                        sections[index].isExpanded =
+                            !sections[index].isExpanded;
+                      });
+                      if (!sections[index].isExpanded) {
+                        _audioPlayer.stop();
+                      }
                     },
-                    body: buildMusicCarousel(_audioPlayer),
-                    isExpanded: section.isExpanded,
-                  );
-                }).toList(),
+                    children: sections.map<ExpansionPanel>((Section section) {
+                      return ExpansionPanel(
+                        headerBuilder: (BuildContext context, bool isExpanded) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: buildSectionHeader(section.title, false),
+                          );
+                        },
+                        body: buildMusicCarousel(_audioPlayer),
+                        isExpanded: section.isExpanded,
+                        canTapOnHeader: true,
+                      );
+                    }).toList(),
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 16),
