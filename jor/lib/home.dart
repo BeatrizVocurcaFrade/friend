@@ -7,7 +7,6 @@ import 'package:jor/functions.dart';
 import 'package:jor/main.dart';
 import 'package:jor/quiz/quiz.dart';
 import 'package:jor/splash.dart';
-import 'package:jor/voucher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -46,14 +45,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const VoucherPage()),
-            );
-          },
-          label: Text('🎁 Abra o seu presente!')),
+      // floatingActionButton: FloatingActionButton.extended(
+      //     onPressed: () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => const VoucherPage()),
+      //       );
+      //     },
+      //     label: Text('🎁 Abra o seu presente!')),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.push(
