@@ -30,7 +30,12 @@ class FinalScreen extends StatelessWidget {
           'Resultado Final',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.deepPurpleAccent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), // Ajuste o valor conforme necessário
+          ),
+        ),
+        backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: Center(

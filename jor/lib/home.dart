@@ -60,10 +60,20 @@ class _HomePageState extends State<HomePage> {
                 height: 30, // Ajuste o tamanho conforme necessário
                 width: 30, // Ajuste o tamanho conforme necessário
               ),
-              Text(' Abra o seu presente!'),
+              Text(
+                ' Abra o seu presente!',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           )),
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), // Ajuste o valor conforme necessário
+          ),
+        ),
         leading: IconButton(
           onPressed: () => Navigator.push(
             context,
@@ -143,56 +153,57 @@ class _HomePageState extends State<HomePage> {
             buildCarousel(livros, context),
             const SizedBox(height: 16),
             GestureDetector(
-              onTap: () {
-                setState(() {
-                  sections[0].isExpanded = !sections[0].isExpanded;
-                });
-                if (!sections[0].isExpanded) {
-                  _audioPlayer.stop();
-                }
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 4,
-                        spreadRadius: 2,
-                      ),
-                    ],
+                onTap: () {
+                  setState(() {
+                    sections[0].isExpanded = !sections[0].isExpanded;
+                  });
+                  if (!sections[0].isExpanded) {
+                    _audioPlayer.stop();
+                  }
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black
+                              .withOpacity(0.1), // Sombra com opacidade
+                          blurRadius: 4,
+                          spreadRadius: 2,
+                        ),
+                      ],
+                    ),
+                    child: ExpansionPanelList(
+                      expansionCallback: (int index, bool isExpanded) {
+                        setState(() {
+                          sections[index].isExpanded =
+                              !sections[index].isExpanded;
+                        });
+                        if (!sections[index].isExpanded) {
+                          _audioPlayer.stop();
+                        }
+                      },
+                      children: sections.map<ExpansionPanel>((Section section) {
+                        return ExpansionPanel(
+                          backgroundColor: Color(0xFFE1D8F1),
+                          headerBuilder:
+                              (BuildContext context, bool isExpanded) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: buildSectionHeader(
+                                  'assets/svg/music.png', section.title, false),
+                            );
+                          },
+                          body: buildMusicCarousel(_audioPlayer),
+                          isExpanded: section.isExpanded,
+                          canTapOnHeader: true,
+                        );
+                      }).toList(),
+                    ),
                   ),
-                  child: ExpansionPanelList(
-                    expansionCallback: (int index, bool isExpanded) {
-                      setState(() {
-                        sections[index].isExpanded =
-                            !sections[index].isExpanded;
-                      });
-                      if (!sections[index].isExpanded) {
-                        _audioPlayer.stop();
-                      }
-                    },
-                    children: sections.map<ExpansionPanel>((Section section) {
-                      return ExpansionPanel(
-                        headerBuilder: (BuildContext context, bool isExpanded) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: buildSectionHeader(
-                                'assets/svg/music.png', section.title, false),
-                          );
-                        },
-                        body: buildMusicCarousel(_audioPlayer),
-                        isExpanded: section.isExpanded,
-                        canTapOnHeader: true,
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ),
+                )),
             const SizedBox(height: 110),
           ],
         ),

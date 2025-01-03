@@ -9,19 +9,24 @@ class VoucherPage extends StatefulWidget {
 
 class _VoucherPageState extends State<VoucherPage> {
   int _clickCount = 0; // Contador de cliques
+  final TransformationController _transformationController =
+      TransformationController();
+  int num = 5;
+  void _resetZoom() {
+    _transformationController.value = Matrix4.identity();
+  }
 
   // Função para tratar o clique e mostrar a surpresa
   void _handleClick() {
     setState(() {
       _clickCount++;
-      if (_clickCount == 3) {}
+      if (_clickCount == num) {}
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _clickCount < 3 ? Colors.white : Colors.black,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -31,22 +36,26 @@ class _VoucherPageState extends State<VoucherPage> {
         title: const Text(
           'Presente surpresa!',
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
       body: Visibility(
-        visible: _clickCount < 3,
+        visible: _clickCount < num,
         replacement: Stack(
           children: [
-            // InteractiveViewer com a imagem
-            InteractiveViewer(
-              boundaryMargin: const EdgeInsets.all(double.infinity),
-              minScale: 1.0,
-              maxScale: 5.0,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
+            GestureDetector(
+              onDoubleTap: _resetZoom,
+              child: InteractiveViewer(
+                boundaryMargin: EdgeInsets.zero, // Limita a movimentação
+                minScale: 1.0,
+                maxScale: 5.0,
+                clipBehavior: Clip.hardEdge,
+                transformationController: _transformationController,
                 child: Image.asset(
                   'assets/luigi.jpeg',
                   width: double.infinity,
@@ -120,7 +129,7 @@ class _VoucherPageState extends State<VoucherPage> {
               ),
               const SizedBox(height: 15),
               Visibility(
-                visible: _clickCount < 3,
+                visible: _clickCount < num,
                 child: GestureDetector(
                   onTap: _handleClick, // Conta os cliques
                   child: AnimatedContainer(
@@ -148,14 +157,34 @@ class _VoucherPageState extends State<VoucherPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              Text(
-                'Clique 3 vezes no presente para a surpresa! 😄',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.w600,
-                ),
+              RichText(
                 textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.w400, // Apenas o contador em negrito
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Clique ',
+                    ),
+                    TextSpan(
+                      text: '${num - _clickCount} vezes',
+                      style: TextStyle(
+                        fontWeight:
+                            FontWeight.bold, // Apenas o contador em negrito
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' no presente para a surpresa! 😄',
+                      style: TextStyle(
+                        fontWeight:
+                            FontWeight.w400, // Apenas o contador em negrito
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           ),

@@ -17,9 +17,10 @@ class CelebratingYouApp extends StatelessWidget {
       title: 'Celebrando Você',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: Color(0xFFD1C4E9),
         textTheme: ThemeData.light().textTheme.apply(
-              fontFamily: 'Poppins',
+              fontFamily: 'Nunito',
             ),
       ),
       home: const SplashScreen(),
