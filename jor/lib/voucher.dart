@@ -34,9 +34,6 @@ class _VoucherPageState extends State<VoucherPage> {
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
@@ -46,7 +43,7 @@ class _VoucherPageState extends State<VoucherPage> {
           children: [
             const SizedBox(height: 30),
             const Text(
-              'Um pequeno presente pra você!',
+              'Um pequeno presente pra vcee!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 26,
@@ -55,7 +52,7 @@ class _VoucherPageState extends State<VoucherPage> {
                 letterSpacing: 1.2,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             Visibility(
               visible: _clickCount < 3,
               child: GestureDetector(
@@ -90,8 +87,8 @@ class _VoucherPageState extends State<VoucherPage> {
                 'Clique 3 vezes no presente para a surpresa! 😄',
                 style: TextStyle(
                   fontSize: 18,
+                  color: Colors.deepPurple,
                   fontWeight: FontWeight.w600,
-                  color: Colors.deepPurpleAccent,
                 ),
                 textAlign: TextAlign.center,
               )
@@ -103,8 +100,8 @@ class _VoucherPageState extends State<VoucherPage> {
                     borderRadius: BorderRadius.circular(30),
                     child: Image.asset(
                       'assets/luigi.jpeg', // Caminho para a imagem de Luigi
-                      height: 300,
-                      width: 225,
+                      height: 320,
+                      width: 205,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -120,7 +117,7 @@ class _VoucherPageState extends State<VoucherPage> {
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    'O sonho do Luigi sempre foi ter esse presente! 🎉',
+                    'O sonho do Luigi sempre foi ter vcê de presente! 🎉',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,

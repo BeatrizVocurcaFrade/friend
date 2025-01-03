@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: buildSectionHeader(
-                  'assets/svg/camera.png', ' Galeria de Memórias', false),
+                  'assets/svg/camera.png', ' Galeria de Memórias', true),
             ),
             GestureDetector(
                 onTap: () {
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 110),
           ],
         ),
       ),
