@@ -10,46 +10,38 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import 'dart:html' as html;
-import 'package:open_file/open_file.dart';
-import 'dart:typed_data';
+import 'package:share_plus/share_plus.dart';
+
+Future<String> savePathInApp(Uint8List bytes, String name) async {
+  try {
+    final dir = await getApplicationDocumentsDirectory();
+    final pathApp = "${dir.path}/$name";
+    final file = File(pathApp);
+    var raf = file.openSync(mode: FileMode.write);
+    raf.writeFromSync(bytes);
+    raf.close();
+    return raf.path;
+  } catch (e) {
+    return e.toString();
+  }
+}
 
 Future<void> downloadAndOpenPdf(
     BuildContext context, String assetPath, String fileName) async {
   try {
-    // Carregar o arquivo PDF do asset
     final ByteData data = await rootBundle.load(assetPath);
-    final bytes = data.buffer.asUint8List();
-    if (kIsWeb) {
-      // Mostrar o PDF diretamente no app (sem abrir nova aba)
-      final blob = html.Blob([Uint8List.fromList(bytes)]);
-      final url = html.Url.createObjectUrlFromBlob(blob);
+    // Converte ByteData para Uint8List
+    final Uint8List uint8List = data.buffer.asUint8List();
+    String path = await savePathInApp(uint8List, "/boleto$fileName.pdf");
+    Share.shareXFiles([XFile(path)]);
 
-      // Revogar a URL após o uso
-      html.Url.revokeObjectUrl(url);
-    } else
-    // Para dispositivos móveis (APK)
-    if (defaultTargetPlatform == TargetPlatform.iOS ||
-        defaultTargetPlatform == TargetPlatform.android) {
-      final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}/$fileName');
-      await file.writeAsBytes(bytes);
-
-      // Abrir o arquivo PDF no visualizador nativo
-      final result = await OpenFile.open(file.path);
-      if (result.type != ResultType.done) {
-        throw Exception('Erro ao abrir o PDF');
-      }
-    }
-    // Mensagem de sucesso
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('PDF aberto com sucesso!'),
+        content: Text('PDF salvo com sucesso! Abrindo...'),
         backgroundColor: Colors.green,
       ),
     );
   } catch (e) {
-    // Mensagem de erro caso algo falhe
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Erro ao abrir o PDF: $e'),

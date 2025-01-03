@@ -85,11 +85,14 @@ class _HomePageState extends State<HomePage> {
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            SizedBox(width: 10),
-            Image.asset(
-              'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
-              height: 30, // Ajuste o tamanho conforme necessário
-              width: 30, // Ajuste o tamanho conforme necessário
+            Visibility(visible: false, child: SizedBox(width: 10)),
+            Visibility(
+              visible: false,
+              child: Image.asset(
+                'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
+                height: 30, // Ajuste o tamanho conforme necessário
+                width: 30, // Ajuste o tamanho conforme necessário
+              ),
             ),
           ],
         ),
