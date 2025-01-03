@@ -8,6 +8,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:html' as html;
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:open_file/open_file.dart';
+import 'dart:typed_data';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart' as html;
+
 Future<void> downloadAndOpenPdf(
     BuildContext context, String assetPath, String fileName) async {
   try {
@@ -15,22 +21,36 @@ Future<void> downloadAndOpenPdf(
     final ByteData data = await rootBundle.load(assetPath);
     final bytes = data.buffer.asUint8List();
 
-    // Criar o Blob para o arquivo
-    final blob = html.Blob([Uint8List.fromList(bytes)]);
+    if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.android) {
+      // Para dispositivos móveis, salvamos o arquivo temporariamente e tentamos abrir
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$fileName');
+      await file.writeAsBytes(bytes);
 
-    // Criar uma URL para o Blob
-    final url = html.Url.createObjectUrlFromBlob(blob);
+      // Abrir o arquivo PDF
+      final result = await OpenFile.open(file.path);
+      if (result.type != ResultType.done) {
+        throw Exception('Erro ao abrir o PDF');
+      }
+    } else if (kIsWeb) {
+      // Para plataformas web
+      final blob = html.Blob([Uint8List.fromList(bytes)]);
+      final url = html.Url.createObjectUrlFromBlob(blob);
 
-    // Criar um link e abrir em uma nova aba
-// Simula o clique para abrir o PDF
+      // Criar um link e abrir em uma nova aba
+      final anchor = html.AnchorElement(href: url)
+        ..target = 'blank'
+        ..click();
 
-    // Revogar a URL após o uso
-    html.Url.revokeObjectUrl(url);
+      // Revogar a URL após o uso
+      html.Url.revokeObjectUrl(url);
+    }
 
     // Mostrar mensagem de sucesso
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('PDF salvo com sucesso!'),
+        content: Text('PDF aberto com sucesso!'),
         backgroundColor: Colors.green,
       ),
     );
