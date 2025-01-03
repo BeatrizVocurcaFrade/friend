@@ -7,6 +7,8 @@ import 'package:jor/functions.dart';
 import 'package:jor/main.dart';
 import 'package:jor/quiz/quiz.dart';
 import 'package:jor/splash.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +25,7 @@ class Section {
 }
 
 List<Section> sections = [
-  Section(title: '🎵 Nosssas músicas'),
+  Section(title: ' Nosssas músicas'),
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -61,9 +63,30 @@ class _HomePageState extends State<HomePage> {
           ),
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
-        title: const Text(
-          '🌈 Bem-vindoo 🌈',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        title: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'svg/rainbow.svg', // Caminho para o seu arquivo SVG
+                height: 30, // Ajuste o tamanho conforme necessário
+                width: 30, // Ajuste o tamanho conforme necessário
+              ),
+              SizedBox(width: 10),
+              Text(
+                'Bem-vindoo',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
+              SizedBox(width: 10),
+              SvgPicture.asset(
+                'svg/rainbow.svg', // Caminho para o seu arquivo SVG
+                height: 30, // Ajuste o tamanho conforme necessário
+                width: 30, // Ajuste o tamanho conforme necessário
+              ),
+            ],
+          ),
         ),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
@@ -84,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => const QuizPage()),
                 );
               },
-              child: buildSectionHeader('✨ Teste da Amizade', true),
+              child: buildSectionHeader(
+                  'svg/sparkles.svg', ' Teste da Amizade', true),
             ),
             const SizedBox(height: 16),
             GestureDetector(
@@ -96,7 +120,8 @@ class _HomePageState extends State<HomePage> {
                       builder: (context) => const MemoryCarousel()),
                 );
               },
-              child: buildSectionHeader('📸 Galeria de Memórias', false),
+              child: buildSectionHeader(
+                  'svg/camera.svg', ' Galeria de Memórias', false),
             ),
             GestureDetector(
                 onTap: () {
@@ -109,7 +134,8 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: buildCarousel(memorias, context)),
             const SizedBox(height: 16),
-            buildSectionHeader('📚 Livros que você quer ler...', false),
+            buildSectionHeader(
+                'svg/book.svg', ' Livros que você quer ler...', false),
             buildCarousel(livros, context),
             const SizedBox(height: 16),
             GestureDetector(
@@ -150,7 +176,8 @@ class _HomePageState extends State<HomePage> {
                         headerBuilder: (BuildContext context, bool isExpanded) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: buildSectionHeader(section.title, false),
+                            child: buildSectionHeader(
+                                'svg/music.svg', section.title, false),
                           );
                         },
                         body: buildMusicCarousel(_audioPlayer),
@@ -170,12 +197,17 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget buildSectionHeader(String title, bool isToTap) {
+Widget buildSectionHeader(String svgUrl, String title, bool isToTap) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 16.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        SvgPicture.asset(
+          svgUrl, // Caminho para o seu arquivo SVG
+          height: 30, // Ajuste o tamanho conforme necessário
+          width: 30, // Ajuste o tamanho conforme necessário
+        ),
         Expanded(
           child: Text(
             title,

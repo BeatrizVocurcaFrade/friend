@@ -1,36 +1,48 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
-import 'dart:io';
+
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:open_filex/open_filex.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> playMusic(String musicAsset, AudioPlayer audioPlayer) async {
-  await audioPlayer.play(AssetSource(musicAsset));
-}
+import 'dart:html' as html;
+import 'dart:typed_data';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 Future<void> downloadAndOpenPdf(
     BuildContext context, String assetPath, String fileName) async {
   try {
+    // Carregar o arquivo PDF do asset
     final ByteData data = await rootBundle.load(assetPath);
+    final bytes = data.buffer.asUint8List();
 
-    final Directory tempDir = await getTemporaryDirectory();
-    final String filePath = '${tempDir.path}/$fileName';
+    // Criar o Blob para o arquivo
+    final blob = html.Blob([Uint8List.fromList(bytes)]);
 
-    final File file = File(filePath);
-    await file.writeAsBytes(data.buffer.asUint8List());
+    // Criar uma URL para o Blob
+    final url = html.Url.createObjectUrlFromBlob(blob);
 
+    // Criar um link e abrir em uma nova aba
+    final anchor = html.AnchorElement(href: url)
+      ..target = 'blank' // Abre em nova aba
+      ..download = fileName // Nome do arquivo ao salvar
+      ..click(); // Simula o clique para abrir o PDF
+
+    // Revogar a URL após o uso
+    html.Url.revokeObjectUrl(url);
+
+    // Mostrar mensagem de sucesso
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('PDF salvo com sucesso! Abrindo...'),
+        content: Text('PDF salvo com sucesso!'),
         backgroundColor: Colors.green,
       ),
     );
-
-    OpenFilex.open(filePath);
   } catch (e) {
+    // Mensagem de erro caso algo falhe
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Erro ao abrir o PDF: $e'),
@@ -38,6 +50,10 @@ Future<void> downloadAndOpenPdf(
       ),
     );
   }
+}
+
+Future<void> playMusic(String musicAsset, AudioPlayer audioPlayer) async {
+  await audioPlayer.play(AssetSource(musicAsset));
 }
 
 void redirectToSite() async {

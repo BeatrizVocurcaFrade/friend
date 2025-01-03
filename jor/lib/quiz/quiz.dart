@@ -154,49 +154,75 @@ class _QuizPageState extends State<QuizPage> {
 
   Widget _buildFeedbackPage(Question question) {
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 500),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            _isCorrect ? Icons.check_circle : Icons.cancel,
-            color: _isCorrect ? Colors.green : Colors.red,
-            size: 100,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            _isCorrect ? 'Acertou!' : 'Errou!',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+        duration: const Duration(milliseconds: 500),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              _isCorrect ? Icons.check_circle : Icons.cancel,
               color: _isCorrect ? Colors.green : Colors.red,
+              size: 120,
             ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                if (_currentQuestionIndex < quizQuestions.length - 1) {
-                  _currentQuestionIndex++;
-                  _isAnswered = false;
-                } else {
-                  _showFinalScreen();
-                }
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              backgroundColor: Colors.deepPurple,
-              textStyle: const TextStyle(fontSize: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+            const SizedBox(height: 20),
+            Text(
+              _isCorrect ? 'Acertou!' : 'Errou!',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w600,
+                color: _isCorrect ? Colors.green : Colors.red,
+                letterSpacing: 1.2,
               ),
             ),
-            child: const Text('Próxima Pergunta',
-                style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
-    );
+            const SizedBox(height: 10),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w400,
+                ),
+                children: [
+                  TextSpan(text: "A mensagem certa era...\n\n "),
+                  TextSpan(
+                    text: question.answer,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors
+                          .black, // ou qualquer outra cor que você preferir
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  if (_currentQuestionIndex < quizQuestions.length - 1) {
+                    _currentQuestionIndex++;
+                    _isAnswered = false;
+                  } else {
+                    _showFinalScreen();
+                  }
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 14),
+                backgroundColor: Colors.deepPurple,
+                textStyle:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 5, // Adds a shadow for a modern feel
+              ),
+              child: const Text('Próxima Pergunta',
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ));
   }
 }
