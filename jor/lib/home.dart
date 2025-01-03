@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           label: Row(
             children: [
               Image.asset(
-                'svg/present.svg', // Caminho para o seu arquivo SVG
+                'assets/svg/present.png', // Caminho para o seu arquivo SVG
                 height: 30, // Ajuste o tamanho conforme necessário
                 width: 30, // Ajuste o tamanho conforme necessário
               ),
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'svg/rainbow.svg', // Caminho para o seu arquivo SVG
+                'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
                 height: 30, // Ajuste o tamanho conforme necessário
                 width: 30, // Ajuste o tamanho conforme necessário
               ),
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(width: 10),
               Image.asset(
-                'svg/rainbow.svg', // Caminho para o seu arquivo SVG
+                'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
                 height: 30, // Ajuste o tamanho conforme necessário
                 width: 30, // Ajuste o tamanho conforme necessário
               ),
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: buildSectionHeader(
-                  'svg/sparkles.svg', ' Teste da Amizade', true),
+                  'assets/svg/sparkles.png', ' Teste da Amizade', true),
             ),
             const SizedBox(height: 16),
             GestureDetector(
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: buildSectionHeader(
-                  'svg/camera.svg', ' Galeria de Memórias', false),
+                  'assets/svg/camera.png', ' Galeria de Memórias', false),
             ),
             GestureDetector(
                 onTap: () {
@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                 child: buildCarousel(memorias, context)),
             const SizedBox(height: 16),
             buildSectionHeader(
-                'svg/book.svg', ' Livros que você quer ler...', false),
+                'assets/svg/book.png', ' Livros que você quer ler...', false),
             buildCarousel(livros, context),
             const SizedBox(height: 16),
             GestureDetector(
@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: buildSectionHeader(
-                                'svg/music.svg', section.title, false),
+                                'assets/svg/music.png', section.title, false),
                           );
                         },
                         body: buildMusicCarousel(_audioPlayer),
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 36),
           ],
         ),
       ),

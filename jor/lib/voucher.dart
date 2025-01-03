@@ -29,10 +29,14 @@ class _VoucherPageState extends State<VoucherPage> {
         ),
         title: const Text(
           'Para Você, Amigo!',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
@@ -43,11 +47,12 @@ class _VoucherPageState extends State<VoucherPage> {
             const SizedBox(height: 30),
             const Text(
               'Um pequeno presente pra você!',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
-                letterSpacing: 1.5,
+                letterSpacing: 1.2,
               ),
             ),
             const SizedBox(height: 20),
@@ -60,20 +65,18 @@ class _VoucherPageState extends State<VoucherPage> {
                   height: 300, // Tamanho grande para o GIF
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        offset: Offset(0, 8),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 15,
+                        offset: Offset(0, 10),
                       ),
                     ],
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                     child: Image.asset(
-                      height: 500,
-                      width: 500,
                       'assets/svg/presente.gif', // Caminho do seu GIF
                       fit: BoxFit.cover,
                     ),
@@ -85,7 +88,11 @@ class _VoucherPageState extends State<VoucherPage> {
             if (_clickCount < 3)
               Text(
                 'Clique 3 vezes no presente para a surpresa! 😄',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.deepPurpleAccent,
+                ),
                 textAlign: TextAlign.center,
               )
             else
@@ -97,17 +104,27 @@ class _VoucherPageState extends State<VoucherPage> {
                     child: Image.asset(
                       'assets/luigi.jpeg', // Caminho para a imagem de Luigi
                       height: 300,
-                      width: 235,
+                      width: 225,
                       fit: BoxFit.cover,
                     ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Fiz na impressora 3D...',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   const Text(
                     'O sonho do Luigi sempre foi ter esse presente! 🎉',
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54,
                     ),
                     textAlign: TextAlign.center,
                   ),
