@@ -101,7 +101,7 @@ class _VoucherPageState extends State<VoucherPage> {
                     child: Image.asset(
                       'assets/luigi.jpeg', // Caminho para a imagem de Luigi
                       height: 320,
-                      width: 205,
+                      width: 195,
                       fit: BoxFit.cover,
                     ),
                   ),
