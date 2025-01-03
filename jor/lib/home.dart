@@ -256,8 +256,9 @@ Widget buildMusicItem(Music music, AudioPlayer audioPlayer) {
           children: [
             Image.asset(
               music.image,
-              fit: BoxFit.cover,
-              width: 120,
+              fit: BoxFit.cover, // Garante que a imagem preencha sem distorcer
+              height: 130,
+              width: 130,
             ),
             Container(
               color: Colors.black54,

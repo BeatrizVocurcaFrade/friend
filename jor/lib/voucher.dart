@@ -28,7 +28,7 @@ class _VoucherPageState extends State<VoucherPage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-          'Para Você, Amigo!',
+          'Presente surpresa!',
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
         ),
@@ -43,7 +43,7 @@ class _VoucherPageState extends State<VoucherPage> {
           children: [
             const SizedBox(height: 30),
             const Text(
-              'Um pequeno presente pra vcee!',
+              'Um pequeno mimo, feito de coração!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 26,
