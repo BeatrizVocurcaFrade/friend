@@ -15,7 +15,7 @@ var quizQuestions = [
   Question(
     answer: 'Todas as opções acima',
     options: [
-      'Reclamar como ser solteiro é ruim',
+      'Planejar o próximo rolê do final de semana',
       'Fofocar de todos os nossos dates da semana',
       'Falar como somos os únicos românticos em bh',
       'Todas as opções acima'
@@ -68,12 +68,13 @@ var quizQuestions = [
     question: 'Qual eu acho que é seu tipo?',
   ),
   Question(
-    answer: 'Francês, para conhecer um novo amor',
+    answer: 'Todas as opções acima',
     options: [
-      'Uma nova dança',
+      'Psicologia',
       'Francês, para conhecer um novo amor',
-      'Filosofia',
-      'Física quântica'
+      'Moda',
+      'Como virar aeromoço',
+      'Todas as opções acima'
     ],
     question: 'Se fosse para aprender algo novo, o que eu acho que seria?',
   ),

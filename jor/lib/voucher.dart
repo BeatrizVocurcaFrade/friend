@@ -21,6 +21,7 @@ class _VoucherPageState extends State<VoucherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _clickCount < 3 ? Colors.white : Colors.black,
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -35,54 +36,118 @@ class _VoucherPageState extends State<VoucherPage> {
         backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: Visibility(
+        visible: _clickCount < 3,
+        replacement: Stack(
           children: [
-            const SizedBox(height: 30),
-            const Text(
-              'Um pequeno mimo, feito de coração!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-                letterSpacing: 1.2,
+            // InteractiveViewer com a imagem
+            InteractiveViewer(
+              boundaryMargin: const EdgeInsets.all(double.infinity),
+              minScale: 1.0,
+              maxScale: 5.0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.asset(
+                  'assets/luigi.jpeg',
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(height: 15),
-            Visibility(
-              visible: _clickCount < 3,
-              child: GestureDetector(
-                onTap: _handleClick, // Conta os cliques
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  height: 300, // Tamanho grande para o GIF
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 15,
-                        offset: Offset(0, 10),
+            // Texto sobreposto no topo
+            Positioned(
+              top: 40.0,
+              left: 16.0,
+              right: 16.0,
+              child: Text(
+                'Fiz na impressora 3D...',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black,
+                      blurRadius: 10,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Texto sobreposto na parte inferior
+            Positioned(
+              bottom: 40.0,
+              left: 16.0,
+              right: 16.0,
+              child: Text(
+                'O sonho do Luigi sempre foi ter você de presente! 🎉',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black,
+                      blurRadius: 10,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                'Um pequeno mimo, feito de coração!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                  letterSpacing: 1.2,
+                ),
+              ),
+              const SizedBox(height: 15),
+              Visibility(
+                visible: _clickCount < 3,
+                child: GestureDetector(
+                  onTap: _handleClick, // Conta os cliques
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    height: 300, // Tamanho grande para o GIF
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.15),
+                          blurRadius: 15,
+                          offset: Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        'assets/svg/presente.gif', // Caminho do seu GIF
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      'assets/svg/presente.gif', // Caminho do seu GIF
-                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            if (_clickCount < 3)
+              const SizedBox(height: 40),
               Text(
                 'Clique 3 vezes no presente para a surpresa! 😄',
                 style: TextStyle(
@@ -92,47 +157,8 @@ class _VoucherPageState extends State<VoucherPage> {
                 ),
                 textAlign: TextAlign.center,
               )
-            else
-              Column(
-                children: [
-                  const SizedBox(height: 20),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: InteractiveViewer(
-                      boundaryMargin: const EdgeInsets.all(20.0),
-                      minScale: 1.0,
-                      maxScale: 5.0,
-                      child: Image.asset(
-                        'assets/luigi.jpeg',
-                        height: 320,
-                        width: 195,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Fiz na impressora 3D...',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'O sonho do Luigi sempre foi ter vcê de presente! 🎉',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black54,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

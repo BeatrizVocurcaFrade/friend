@@ -8,15 +8,23 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:share_plus/share_plus.dart';
-import 'dart:html' as html;
-
-import 'dart:typed_data';
 import 'dart:io' as io;
+import 'package:share_plus/share_plus.dart';
+// Adicione o pacote universal_html ao pubspec.yaml para suporte multiplataforma
+// dependencies:
+//   universal_html: ^2.0.6
+import 'package:universal_html/html.dart' as html;
 
 Future<String> savePathInApp(Uint8List bytes, String name) async {
   if (kIsWeb) {
-    // Salvar como um link no navegador no Flutter Web
+    return _saveInBrowser(bytes, name);
+  } else {
+    return _saveLocally(bytes, name);
+  }
+}
+
+Future<String> _saveInBrowser(Uint8List bytes, String name) async {
+  try {
     final blob = html.Blob([bytes]);
     final url = html.Url.createObjectUrlFromBlob(blob);
 
@@ -27,21 +35,21 @@ Future<String> savePathInApp(Uint8List bytes, String name) async {
 
     html.Url.revokeObjectUrl(url);
 
-    // Retorna uma mensagem de sucesso para Flutter Web
     return 'Arquivo salvo no navegador: $name';
-  } else {
-    // Salvar localmente em plataformas móveis e desktop
-    try {
-      final dir = await getApplicationDocumentsDirectory();
-      final pathApp = "${dir.path}/$name";
-      final file = io.File(pathApp);
-      var raf = file.openSync(mode: io.FileMode.write);
-      raf.writeFromSync(bytes);
-      raf.close();
-      return pathApp;
-    } catch (e) {
-      return e.toString();
-    }
+  } catch (e) {
+    return 'Erro ao salvar no navegador: ${e.toString()}';
+  }
+}
+
+Future<String> _saveLocally(Uint8List bytes, String name) async {
+  try {
+    final dir = await getApplicationDocumentsDirectory();
+    final pathApp = "${dir.path}/$name";
+    final file = io.File(pathApp);
+    await file.writeAsBytes(bytes);
+    return pathApp;
+  } catch (e) {
+    return 'Erro ao salvar localmente: ${e.toString()}';
   }
 }
 
