@@ -7,8 +7,7 @@ import 'package:jor/functions.dart';
 import 'package:jor/main.dart';
 import 'package:jor/quiz/quiz.dart';
 import 'package:jor/splash.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jor/voucher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,14 +46,23 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton.extended(
-      //     onPressed: () {
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) => const VoucherPage()),
-      //       );
-      //     },
-      //     label: Text('🎁 Abra o seu presente!')),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const VoucherPage()),
+            );
+          },
+          label: Row(
+            children: [
+              Image.asset(
+                'svg/present.svg', // Caminho para o seu arquivo SVG
+                height: 30, // Ajuste o tamanho conforme necessário
+                width: 30, // Ajuste o tamanho conforme necessário
+              ),
+              Text(' Abra o seu presente!'),
+            ],
+          )),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.push(
@@ -68,7 +76,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
+              Image.asset(
                 'svg/rainbow.svg', // Caminho para o seu arquivo SVG
                 height: 30, // Ajuste o tamanho conforme necessário
                 width: 30, // Ajuste o tamanho conforme necessário
@@ -80,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
               SizedBox(width: 10),
-              SvgPicture.asset(
+              Image.asset(
                 'svg/rainbow.svg', // Caminho para o seu arquivo SVG
                 height: 30, // Ajuste o tamanho conforme necessário
                 width: 30, // Ajuste o tamanho conforme necessário
@@ -203,7 +211,7 @@ Widget buildSectionHeader(String svgUrl, String title, bool isToTap) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SvgPicture.asset(
+        Image.asset(
           svgUrl, // Caminho para o seu arquivo SVG
           height: 30, // Ajuste o tamanho conforme necessário
           width: 30, // Ajuste o tamanho conforme necessário

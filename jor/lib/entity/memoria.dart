@@ -23,7 +23,7 @@ var memorias = [
   Memoria.image(image: 'assets/5.jpeg', message: "Meu homem!"),
   Memoria.image(
       image: 'assets/6.jpeg',
-      message: "Carnaval caótico, mas desse ano vai ser pior🙏🙏"),
+      message: "Carnaval caótico, mas desse ano vai ser pior"),
   Memoria.image(image: 'assets/7.jpeg', message: "Outro carnaval"),
   Memoria.image(
       image: 'assets/8.jpeg', message: "Devíamos ter uns 11 anos nessa foto"),

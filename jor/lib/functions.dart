@@ -7,10 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:html' as html;
-import 'dart:typed_data';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter/material.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 Future<void> downloadAndOpenPdf(
     BuildContext context, String assetPath, String fileName) async {
@@ -26,10 +22,7 @@ Future<void> downloadAndOpenPdf(
     final url = html.Url.createObjectUrlFromBlob(blob);
 
     // Criar um link e abrir em uma nova aba
-    final anchor = html.AnchorElement(href: url)
-      ..target = 'blank' // Abre em nova aba
-      ..download = fileName // Nome do arquivo ao salvar
-      ..click(); // Simula o clique para abrir o PDF
+// Simula o clique para abrir o PDF
 
     // Revogar a URL após o uso
     html.Url.revokeObjectUrl(url);

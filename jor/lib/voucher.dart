@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class VoucherPage extends StatelessWidget {
-  final String voucherCode = "ZARA2024DIS";
-
+class VoucherPage extends StatefulWidget {
   const VoucherPage({super.key});
+
+  @override
+  _VoucherPageState createState() => _VoucherPageState();
+}
+
+class _VoucherPageState extends State<VoucherPage> {
+  int _clickCount = 0; // Contador de cliques
+
+  // Função para tratar o clique e mostrar a surpresa
+  void _handleClick() {
+    setState(() {
+      _clickCount++;
+      if (_clickCount == 3) {}
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +27,10 @@ class VoucherPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Para Você, Amigo!',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Para Você, Amigo!',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.deepPurple,
         elevation: 0,
       ),
@@ -27,18 +41,7 @@ class VoucherPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 30),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                'assets/zara_logo.png',
-                height: 120,
-                width: 240,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 30),
             const Text(
-              textAlign: TextAlign.center,
               'Um pequeno presente pra você!',
               style: TextStyle(
                 fontSize: 25,
@@ -48,75 +51,68 @@ class VoucherPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              'Copie o código abaixo para usar seu voucher.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black.withValues(alpha: 0.6),
-                fontStyle: FontStyle.italic,
+            Visibility(
+              visible: _clickCount < 3,
+              child: GestureDetector(
+                onTap: _handleClick, // Conta os cliques
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  height: 300, // Tamanho grande para o GIF
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      height: 500,
+                      width: 500,
+                      'assets/svg/presente.gif', // Caminho do seu GIF
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 30),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.pink.shade300, Colors.purple.shade600],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 15,
-                    offset: const Offset(0, 8),
+            const SizedBox(height: 20),
+            if (_clickCount < 3)
+              Text(
+                'Clique 3 vezes no presente para a surpresa! 😄',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+              )
+            else
+              Column(
+                children: [
+                  const SizedBox(height: 20),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Image.asset(
+                      'assets/luigi.jpeg', // Caminho para a imagem de Luigi
+                      height: 300,
+                      width: 235,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'O sonho do Luigi sempre foi ter esse presente! 🎉',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
-              child: GestureDetector(
-                onTap: () {
-                  Clipboard.setData(ClipboardData(text: voucherCode));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Código copiado! Aproveite!'),
-                    ),
-                  );
-                },
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        voucherCode,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.copy, color: Colors.white),
-                      onPressed: () {
-                        Clipboard.setData(ClipboardData(text: voucherCode));
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 40),
-            Text(
-              'Pensei com carinho um presente de que iria gostar, espero que curta! ❤️',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.black.withValues(alpha: 0.5),
-                letterSpacing: 1.1,
-              ),
-            ),
           ],
         ),
       ),
