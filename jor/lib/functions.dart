@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -11,18 +9,39 @@ import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:share_plus/share_plus.dart';
+import 'dart:html' as html;
+
+import 'dart:typed_data';
+import 'dart:io' as io;
 
 Future<String> savePathInApp(Uint8List bytes, String name) async {
-  try {
-    final dir = await getApplicationDocumentsDirectory();
-    final pathApp = "${dir.path}/$name";
-    final file = File(pathApp);
-    var raf = file.openSync(mode: FileMode.write);
-    raf.writeFromSync(bytes);
-    raf.close();
-    return raf.path;
-  } catch (e) {
-    return e.toString();
+  if (kIsWeb) {
+    // Salvar como um link no navegador no Flutter Web
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+
+    html.AnchorElement(href: url)
+      ..target = '_blank'
+      ..download = name
+      ..click();
+
+    html.Url.revokeObjectUrl(url);
+
+    // Retorna uma mensagem de sucesso para Flutter Web
+    return 'Arquivo salvo no navegador: $name';
+  } else {
+    // Salvar localmente em plataformas móveis e desktop
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final pathApp = "${dir.path}/$name";
+      final file = io.File(pathApp);
+      var raf = file.openSync(mode: io.FileMode.write);
+      raf.writeFromSync(bytes);
+      raf.close();
+      return pathApp;
+    } catch (e) {
+      return e.toString();
+    }
   }
 }
 
@@ -30,21 +49,31 @@ Future<void> downloadAndOpenPdf(
     BuildContext context, String assetPath, String fileName) async {
   try {
     final ByteData data = await rootBundle.load(assetPath);
-    // Converte ByteData para Uint8List
     final Uint8List uint8List = data.buffer.asUint8List();
+
     String path = await savePathInApp(uint8List, "/boleto$fileName.pdf");
-    Share.shareXFiles([XFile(path)]);
+
+    if (kIsWeb) {
+      // Compartilhar no navegador usando Web Share API
+      final blob = html.Blob([uint8List]);
+      final url = html.Url.createObjectUrlFromBlob(blob);
+
+      html.Url.revokeObjectUrl(url);
+    } else {
+      // Compartilhar em plataformas móveis/desktop
+      Share.shareXFiles([XFile(path)]);
+    }
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('PDF salvo com sucesso! Abrindo...'),
+        content: Text('PDF salvo com sucesso!'),
         backgroundColor: Colors.green,
       ),
     );
   } catch (e) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Erro ao abrir o PDF: $e'),
+        content: Text('Erro ao salvar o PDF: $e'),
         backgroundColor: Colors.red,
       ),
     );

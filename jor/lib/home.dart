@@ -72,7 +72,6 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
         ),
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
@@ -85,14 +84,11 @@ class _HomePageState extends State<HomePage> {
               style:
                   TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            Visibility(visible: false, child: SizedBox(width: 10)),
-            Visibility(
-              visible: false,
-              child: Image.asset(
-                'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
-                height: 30, // Ajuste o tamanho conforme necessário
-                width: 30, // Ajuste o tamanho conforme necessário
-              ),
+            SizedBox(width: 10),
+            Image.asset(
+              'assets/svg/rainbow.png', // Caminho para o seu arquivo SVG
+              height: 30, // Ajuste o tamanho conforme necessário
+              width: 30, // Ajuste o tamanho conforme necessário
             ),
           ],
         ),

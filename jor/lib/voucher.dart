@@ -98,11 +98,16 @@ class _VoucherPageState extends State<VoucherPage> {
                   const SizedBox(height: 20),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      'assets/luigi.jpeg', // Caminho para a imagem de Luigi
-                      height: 320,
-                      width: 195,
-                      fit: BoxFit.cover,
+                    child: InteractiveViewer(
+                      boundaryMargin: const EdgeInsets.all(20.0),
+                      minScale: 1.0,
+                      maxScale: 5.0,
+                      child: Image.asset(
+                        'assets/luigi.jpeg',
+                        height: 320,
+                        width: 195,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
