@@ -24,7 +24,7 @@ class Section {
 }
 
 List<Section> sections = [
-  Section(title: ' Nosssas músicas'),
+  Section(title: ' Nossas músicas'),
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage> {
 
 Widget buildSectionHeader(String svgUrl, String title, bool isToTap) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 16.0),
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -226,10 +226,10 @@ Widget buildSectionHeader(String svgUrl, String title, bool isToTap) {
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 22,
+            style: TextStyle(
+              fontSize: 21,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.grey[850],
             ),
           ),
         ),
@@ -242,7 +242,7 @@ Widget buildSectionHeader(String svgUrl, String title, bool isToTap) {
 
 Widget buildMusicCarousel(AudioPlayer audioPlayer) {
   return SizedBox(
-    height: 140,
+    height: 130,
     child: ListView(
       scrollDirection: Axis.horizontal,
       children:
@@ -253,7 +253,7 @@ Widget buildMusicCarousel(AudioPlayer audioPlayer) {
 
 Widget buildMusicItem(Music music, AudioPlayer audioPlayer) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 15),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: GestureDetector(

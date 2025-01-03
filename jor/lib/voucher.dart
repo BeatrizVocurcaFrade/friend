@@ -117,13 +117,13 @@ class _VoucherPageState extends State<VoucherPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 30),
-              const Text(
+              Text(
                 'Um pequeno mimo, feito de coração!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: Colors.grey[850],
                   letterSpacing: 1.2,
                 ),
               ),
