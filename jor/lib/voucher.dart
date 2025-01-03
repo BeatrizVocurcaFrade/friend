@@ -51,7 +51,7 @@ class _VoucherPageState extends State<VoucherPage> {
         elevation: 0,
       ),
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 1200),
         transitionBuilder: (Widget child, Animation<double> animation) {
           return FadeTransition(
             opacity: animation,
