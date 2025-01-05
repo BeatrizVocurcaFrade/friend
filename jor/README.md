@@ -1,6 +1,6 @@
 # jor
 
-A new Flutter project.
+Para o meu amigo especial.
 
 ## Getting Started
 

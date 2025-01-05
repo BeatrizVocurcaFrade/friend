@@ -113,7 +113,8 @@ class _QuizPageState extends State<QuizPage> {
                     (option) => Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
-                        onTap: () => _answerQuestion(option == question.answer),
+                        onTap: () =>
+                            _answerQuestion(question.answer.contains(option)),
                         child: Container(
                           margin: const EdgeInsets.symmetric(vertical: 8),
                           padding: const EdgeInsets.symmetric(
@@ -201,7 +202,7 @@ class _QuizPageState extends State<QuizPage> {
                     ),
                   ),
                   TextSpan(
-                    text: question.answer,
+                    text: question.answer.join(" e "),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors

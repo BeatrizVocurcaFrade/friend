@@ -32,15 +32,15 @@ var memorias = [
 ];
 var livros = [
   Memoria.book(
+      image: 'assets/c.jpg', url: "assets/d.pdf", message: "NPiseNoVazio"),
+  Memoria.book(
+      image: 'assets/d.jpg', url: "assets/c.pdf", message: "DesigningYourLife"),
+  Memoria.book(
       image: 'assets/a.jpg', url: "assets/a.pdf", message: "AgntMiraNoAmor"),
   Memoria.book(
       image: 'assets/b.jpg',
       url: "assets/b.epub",
       message: "TalvezVceDevaConversar"),
-  Memoria.book(
-      image: 'assets/c.jpg', url: "assets/d.pdf", message: "NPiseNoVazio"),
-  Memoria.book(
-      image: 'assets/d.jpg', url: "assets/c.pdf", message: "DesigningYourLife"),
   Memoria.net(
       image: 'assets/f.jpg', url: "https://amz.onl/3Ba6m3Z", message: "Boteco"),
 ];

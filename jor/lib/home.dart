@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                 child: buildCarousel(memorias, context)),
             const SizedBox(height: 16),
             buildSectionHeader(
-                'assets/svg/book.png', ' Livros que você quer ler...', false),
+                'assets/svg/book.png', ' Livros que você pediu...', false),
             buildCarousel(livros, context),
             const SizedBox(height: 16),
             GestureDetector(
