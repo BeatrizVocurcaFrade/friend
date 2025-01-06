@@ -2,6 +2,13 @@ var memorias = [
   Memoria.image(
       image: 'assets/13.jpeg',
       message: "Te amo, mas essa foto tinha que vir primeiro kkkkk"),
+  Memoria.image(image: 'assets/1a.jpeg', message: ""),
+  Memoria.image(image: 'assets/2a.jpeg', message: ""),
+  Memoria.image(image: 'assets/3a.jpeg', message: ""),
+  Memoria.image(image: 'assets/4a.jpeg', message: ""),
+  Memoria.image(image: 'assets/5a.jpeg', message: ""),
+  Memoria.image(image: 'assets/6a.jpeg', message: ""),
+  Memoria.image(image: 'assets/7a.jpeg', message: ""),
   Memoria.image(
       image: 'assets/12.jpeg', message: "Nosso último rolê do ano..."),
 
@@ -20,13 +27,13 @@ var memorias = [
       image: 'assets/3.jpeg', message: "O dia do nosso primeiro beijo"),
   Memoria.image(
       image: 'assets/4.jpeg', message: "Um dos nossos dates românticos..."),
-  Memoria.image(image: 'assets/5.jpeg', message: "Meu homem!"),
-  Memoria.image(
-      image: 'assets/6.jpeg',
-      message: "Carnaval caótico, mas desse ano vai ser pior..."),
+  // Memoria.image(image: 'assets/5.jpeg', message: "Meu homem!"),
+  // Memoria.image(
+  //     image: 'assets/6.jpeg',
+  //     message: "Carnaval caótico, mas desse ano vai ser pior..."),
   Memoria.image(image: 'assets/7.jpeg', message: "Outro carnaval"),
-  Memoria.image(
-      image: 'assets/8.jpeg', message: "Devíamos ter uns 11 anos nessa foto"),
+  // Memoria.image(
+  //     image: 'assets/8.jpeg', message: "Devíamos ter uns 11 anos nessa foto"),
 
   Memoria.image(image: 'assets/11.jpeg', message: "Combinandinhos na praia"),
 ];
